@@ -10,4 +10,4 @@ Ejemplos hechos para entender SOLID y aplicarlo con Python 3.X
 * I (Interface Segregation Principle)
 * D (Dependency Inversion Principle))
 
-> Fecha: 7 de Mayo 2020
+> Fecha: 8 de Mayo 2020
