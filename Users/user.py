@@ -34,12 +34,15 @@ class BaseUser:
 
 
 class Developer(BaseUser):
-
+    """Tipo de usuario Developer. Hereda de Baseuser"""
     def __init__(self, name, last_name, age, language, data_base):
         super().__init__(name, last_name, age)
         self.__language = language
         self.__data_base = data_base
 
+    def __str__(self):
+        return "Override del método padre en BaseUser"
+    
     @property
     def languague(self):
         return self.__language
@@ -49,25 +52,72 @@ class Developer(BaseUser):
         return self.__data_base
 
 
-class DeveloperBehavior:
+class Documentary(BaseUser):
+    """Tipo de usuario Documentador. Hereda de Baseuser"""
+    def __init__(self, name, last_name, age,):
+        super().__init__(name, last_name, age)
+        
 
-    def __init__(self, name, last_name, age, language, data_base):
-        self.developer = Developer(name, last_name, age, language, data_base)
+class UserBhavior:
+    """Clase base para el comportamiento de nuestros usuarios """
+    def __init__(self, user):
+        self.user = user
 
     def __str__(self):
         return "Clase secreta, we"
 
-    def coding(self):
-        print("Nombre: {}, Tecnología: {}, Base de Datos: {}".format(self.developer.name, self.developer.languague, self.developer.data_base))
 
-    def show_dev(self, index):
-        print("{}.- {}, {}, {}, {}, {}".format(
+    def Working(self):
+        print("Nombre: {}".format(self.user.name))
+
+
+    def show_user(self, index):
+        print("{}.- {}, {}, {}".format(
                                                index,
-                                               self.developer.name,
-                                               self.developer.last_name,
-                                               self.developer.age,
-                                               self.developer.languague,
-                                               self.developer.data_base,
+                                               self.user.name,
+                                               self.user.last_name,
+                                               self.user.age,
                                              ))
         index += 1
         return None
+
+#Comportamiento de los usuarios del Sistema
+class DevBehavior(UserBhavior):
+    """Clase que hereda de UserBehavior, de manera generica"""
+    def __init__(self, type_user):
+         super().__init__(type_user)
+         self.type_user = "Developer"
+    
+    def show_user(self, index):
+        print("{}.- {}, {}, {}, {}".format(
+                                               index,
+                                               self.user.name,
+                                               self.user.last_name,
+                                               self.user.age,
+                                               self.type_user
+                                             ))
+        index += 1
+        return None
+
+    
+
+
+class DocumentaryBehavior(UserBhavior):
+    """Clase que hereda de UserBehavior, de manera generica"""
+    def __init__(self, type_user):
+         super().__init__(type_user)
+         self.type_user = "Documentary"
+    
+
+
+if __name__ == "__main__":
+    print("------------------Developer----------------")
+    developer = Developer("rodrigo", "Urcino", 24, "Python", "DB")
+    dev =  DevBehavior(developer)
+    dev.Working()
+    dev.show_user(1)
+    print("------------------Documentador----------------")
+    documentary = Documentary("Francisco", "Urcino", 25)
+    doc = DocumentaryBehavior(documentary)
+    doc.Working()
+    doc.show_user(1)
